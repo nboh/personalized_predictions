@@ -22,7 +22,7 @@ def inulin_supplement(medium):
 def lmn_supplement(medium):
     medium = pd.concat([medium,
                         pd.DataFrame(
-                            index = ['EX_inulin_m'],
+                            index = ['EX_lmn30_m'],
                             data = {'flux': [14],
                                     'dilution':[1.0],
                                     'metabolite':['lmn30_m']})])
@@ -30,7 +30,6 @@ def lmn_supplement(medium):
 
 
 def diet_intervention(com_name, diet):
-    com = micom.load_pickle(com_name+'.pickle')
     com.medium = diet.flux
     growth = com.cooperative_tradeoff(fraction = 0.7,pfba = False,fluxes = True)
     res = growth.fluxes.mul(growth.members.abundance, axis = 0)
