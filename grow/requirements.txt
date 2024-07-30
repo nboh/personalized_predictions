@@ -1,0 +1,21 @@
+pandas>=2.2
+numpy>=1.22.4
+python-dateutil>=2.8.2
+pytz>=2020.1
+tzdata>=2022.7
+cobra>=0.17.1
+jinja2>=2.10.0
+docker run -p 4000:80 micom-build
+scikit-learn>=0.22.0
+scipy>=1.0.0
+symengine>=0.6.1
+osqp>=0.6.2
+micom>=0.35.0
+coverage
+pytest
+pytest-cov
+sphinx
+nbsphinx
+sphinx-book-theme
+sphinx-autoapi
+recommonmark
