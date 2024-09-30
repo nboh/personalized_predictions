@@ -1,6 +1,5 @@
 import pandas as pd
-import micom 
-
+import micom
 
 def add_all_probiotic(taxonomy):
     taxonomy_probiotic_total = pd.DataFrame()
@@ -21,18 +20,16 @@ def add_all_probiotic(taxonomy):
 
     return taxonomy_probiotic_total
 
-
 # locate GEM model database
 agora = './agora103_refseq216_species_1.qza'
 
 # convert metagenomics pipeline output to taxonomy table
-taxonomy = pd.read_csv('data/S_counts.csv')
-taxonomy['sample_id'] = taxonomy['sample_id'].astype('str')
-taxonomy.rename(columns = {'fraction_total_reads':'abundance',
-                           'name':'species'},
+taxonomy = pd.read_csv('data/22001612560458_counts.csv')
+taxonomy.rename(columns = {'sample':'sample_id'},
                 inplace = True)
+taxonomy['sample_id'] = taxonomy['sample_id'].astype('str')
+taxonomy['id'] = taxonomy['species']
 
-taxonomy['id'] = taxonomy['species'].str.replace(' ', '_')
 
 # sum duplicates
 taxonomy= taxonomy.groupby(['sample_id','species','id']).sum().reset_index()
@@ -41,17 +38,16 @@ taxonomy= taxonomy.groupby(['sample_id','species','id']).sum().reset_index()
 taxonomy['tot_reads'] = taxonomy.groupby('sample_id')['reads'].transform('sum')
 taxonomy['abundance'] = taxonomy['reads']/taxonomy['tot_reads']
 
-
 taxonomy_cocktail = add_all_probiotic(taxonomy)
-
-
 
 # combine all models
 taxonomy = pd.concat([taxonomy, taxonomy_cocktail])
 
 taxonomy['species'] = taxonomy['species'].str.replace('_',' ')
 taxonomy['sample_id'] = taxonomy['sample_id'].astype('str')
+
 taxonomy = taxonomy.groupby(['sample_id','species','id']).sum().reset_index()
+
 
 # build models with MICOM
 manifest = micom.workflows.build(taxonomy, 
