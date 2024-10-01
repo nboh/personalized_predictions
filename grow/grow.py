@@ -50,11 +50,11 @@ def add_fiber_supplements(medium, fiber_flux):
     return media
 
 # load model manifest
-manifest = pd.read_csv('model_pendulum/manifest.csv')
+manifest = pd.read_csv('model/manifest.csv')
 
 
 # load media files
-eu_medium = pd.read_csv('diets/european_medium.csv')
+eu_medium = pd.read_csv('diets/european_medium_v2.csv')
 med_medium = pd.read_csv('diets/mediterranean_diet_v2.csv')
 bad_medium = pd.read_csv('diets/unhealthy_diet_v2.csv')
 
@@ -81,7 +81,7 @@ for diet in diets.keys():
     media = diets[diet]
     for intervention in media.keys():
         growth = micom.workflows.grow(manifest, 
-                                      model_folder = './model_pendulum/',
+                                      model_folder = './model/',
                                       medium = media[intervention],
                                       tradeoff = 0.95, 
                                       strategy = 'none',
