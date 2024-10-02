@@ -5,7 +5,6 @@ pytz>=2020.1
 tzdata>=2022.7
 cobra>=0.17.1
 jinja2>=2.10.0
-docker run -p 4000:80 micom-build
 scikit-learn>=0.22.0
 scipy>=1.0.0
 symengine>=0.6.1
